@@ -2,9 +2,13 @@ const Access = require('../models/access');
 
 // Registrar un acceso (Create)
 const registerAccess = async (req, res) => {
-   const { userId, accessDate } = req.body;
+   const { userId } = req.body;
    try {
-       const access = new Access({ user: userId, accessDate, accessGranted: true });
+       const access = new Access({
+            user: userId,
+            accessDate: new Date(),
+            accessGranted: true 
+        });
        await access.save();
        res.status(201).json({ message: 'Acceso registrado exitosamente', access });
    } catch (error) {
